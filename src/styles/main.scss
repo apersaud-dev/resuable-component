@@ -1,0 +1,188 @@
+@use "./_reset";
+
+$border-color: #c7c4bf;
+$hover-color: #ebebeb;
+$selected-color: lightgrey;
+
+body {
+  background-color: #fff;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.dataTable {
+  & table {
+    width: 100%;
+    display: block;
+    border-collapse: collapse;
+
+    & tbody {
+      display: block;
+    }
+
+    & tr {
+      display: grid;
+      grid-template-columns: 50px 175px 175px 1fr 100px;
+      padding: 4px 2px;
+      border-bottom: 1px solid $border-color;
+      align-items: center;
+    }
+  }
+}
+
+.dataTableControls {
+  display: grid;
+  grid-template-columns: 50px 140px auto;
+  align-items: center;
+  font-size: 18px;
+  border-bottom: 1px solid $border-color;
+  padding: 4px 2px;
+
+  &__checkboxWrapper {
+    padding: 1px;
+    margin: 0;
+  }
+
+  button svg {
+    width: 20px;
+  }
+
+  &__downloadButton {
+    cursor: pointer;
+    border: none;
+    background: none;
+    outline: none;
+
+    &--disabled {
+      @extend .dataTableControls__downloadButton;
+      cursor: auto;
+
+      & svg {
+        fill: rgba(16, 16, 16, 0.3);
+      }
+    }
+  }
+
+  &__downloadText {
+    margin-left: 4px;
+  }
+}
+
+.dataTableHeader {
+  display: block;
+  font-size: 14px;
+  text-align: left;
+
+  &__status {
+    margin-left: 17px;
+  }
+}
+
+.dataTableRow {
+  font-size: 12px;
+
+  &:has(input[type="checkbox"]:checked) {
+    background-color: $selected-color;
+  }
+
+  &:hover {
+    background-color: $hover-color;
+  }
+
+  &__label input[type="checkbox"] {
+    cursor: pointer;
+  }
+
+  &__status {
+    display: flex;
+    align-items: center;
+
+    &--available {
+      width: 12px;
+      height: 12px;
+      background-color: limegreen;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+
+    &--scheduled {
+      @extend .dataTableRow__status--available;
+      background-color: transparent;
+    }
+  }
+
+  &__statusText {
+    text-transform: capitalize;
+  }
+}
+
+.mixedStateCheckbox {
+  cursor: pointer;
+}
+
+.downloadDialog {
+  background: #fbfbfb;
+  padding: 20px;
+  border: 2px solid transparent;
+  border-radius: 5px;
+
+  &__header {
+    margin-bottom: 1rem;
+  }
+
+  &__heading {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  &__list {
+    padding-left: 1rem;
+    margin: 0.25rem 0 1rem;
+
+    & li {
+      list-style: disc;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  &__closeButton {
+    background: #fff;
+    font-size: 14px;
+    outline: none;
+    padding: 4px 8px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    transition: background-color linear 0.3s;
+
+    &:hover {
+      background: #0f0;
+      transition: background-color linear 0.3s;
+    }
+  }
+
+  &::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: no-wrap;
+  border-width: 0;
+}
