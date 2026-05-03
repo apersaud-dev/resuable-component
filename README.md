@@ -1,73 +1,35 @@
-# React + TypeScript + Vite
+# Reusable Component
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This cproject was bootstrapped with Vite's React + Typescript template.
 
-Currently, two official plugins are available:
+## Clone Instructions
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+This project can be downloaded from this [Google Drive Folder]();
 
-## React Compiler
+## Available Scripts
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Note: This project requires that a Node version 24.12.2 or higher.
 
-## Expanding the ESLint configuration
+#### `npm i` or `npm install`
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+This will install all the required dependencies.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+#### `npm run dev`
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+This will run the code on a local development server (likely [localhost:5173](http://localhost:5173)). The Code will not be minified.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+#### `npm run build`
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+This script will first check if there are any TypeScript errors. Pending no failures, the code will be bundled, minifed and comments will be removed, and it will create a `/dist` folder containing static HTML, CSS and JavaScript files.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+#### `npm run preview`
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+This command will boot up a simple server to serve the static files found inside the `/dist` folder. Note, the command `npm run build` must be run before running this command.
+
+## Notes
+
+In the interest of time, a lot of the component prop definitions are written in the same file where they are used. The types and interface definitions that are housed in the `/src/data/types.ts` file were added there because they are consumed in multiple locations.
+
+For the styling of this project, I chose to use SASS with the [BEM (block-element-modifier)](https://getbem.com/) naming convention.
+
+I tried to simplify state by lifting it into the parent DataTable component so that it could be used by child components. I also opted to use a reducer function even though the simplicity of this application didn't necessarily call for it. My reasoning is that even though it would be simpler to take a useState approach, this direction would scale better especially if additional features were added to the project (e.g. sort rows, filter rows, delete rows, etc.).
